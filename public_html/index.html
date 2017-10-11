@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="ui.bootstrap.demo">
+  <head>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+  form.tab-form-demo .tab-pane {
+    margin: 20px 20px;
+  }
+  
+  #display
+  {
+      font-style: italic
+  }
+</style>
+  </head>
+  <body>
+      <br>
+
+    <div class="container container-table">
+    <div class="row vertical-center-row">
+        <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-primary" style="width: 400px; height: 500px;" >
+        <div class="panel-heading">Welcome User!</div>
+        <div class="panel-body client-left-side"></div>
+<div ng-controller="TabsDemoCtrl">
+    <form  name="outerForm" class="tab-form-demo" action="/index" method="post">
+   <uib-tabset active="activeForm">
+      <uib-tab index="0" heading="STEP 1">
+          <ng-form name="nestedForm" ng-submit="formNext()">
+          <div class="form-group">   
+<!-- Write code for input text fields (firstname,lastname,email,phone) here-->  
+
+<div class="form-group">
+  <label for="FName">Enter First Name</label>
+  <input type="text" class="form-control" id="fname"
+  name="firstName" placeholder="Enter First Name" required></div>
+<div class="form-group">
+ <label for="LName">Enter Last Name</label>
+  <input type="text" class="form-control" id="lname"
+  name="lastName" placeholder="Enter Last Name" required></div>
+<div class="form-group">
+               <label for="email">Enter Email</label>
+  <input type="text" class="form-control" id="email"
+  name="email" placeholder="Enter Email" required></div>
+<div class="form-group">
+<label for="Gender">Gender</label>
+  <input type="radio" name="gender" value="male"> Male<br>
+  <input type="radio" name="gender" value="female"> Female<br>
+  <input type="radio" name="gender" value="other"> Other</div>
+<input type="text" class="form-control" id="gender"
+  name="Gender" placeholder="Gender" required></div>
+<div class="form-group">
+    <label for="type"> Type of work</label>
+    <select>
+   <option value="choose">Choose</option>
+  <option value="volvo">Student</option>
+  <option value="saab">Employee</option>
+ 
+</select>
+    <input type="text" class="form-control" id="type"
+  name="Type" placeholder="Type of work" required></div>
+    
+
+
+            <button type="button"   class="btn btn-primary" ng-click="formNext()" >Next</button>
+          </div>
+        </ng-form>
+      </uib-tab>
+      <uib-tab index="1" heading="STEP 2" id="step2">
+         <ng-form name="nestedForm" ng-submit="formNext()" >
+          <div class="form-group">
+        <div class="form-group input-group">
+        <div class="row">
+        <div class="col-md-12 ">
+            <label>From: &nbsp; </label><select  id="selectedOption" ng-model="selectedOption" ng-options="option.name for option in options">
+            </select>   <label>To: &nbsp;</label><select ng-model="selectedOptionTo" ng-options="option1.name for option1 in optionsTo">
+</select>
+
+<!-- Write code for drowpdown list, go to below link for sample code 
+// http://www.w3schools.com/angular/tryit.asp?filename=try_ng_select_selected--> 
+        </div>
+        </div>
+        </div>
+       
+        
+      <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.js"></script>
+        <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.3.js"></script>
+
+          <!--<script  src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.min.js"></script>-->
+
+          <script>
+//            angular.module('ui.bootstrap.demo', ['ngAnimate', 'ui.bootstrap']);
+//angular.module('ui.bootstrap.demo').controller('TabsDemoCtrl', function ($scope, $window) {
+
+  //dropdown
+    
+  
+  
+
+  //tab index
+  var index = 0;
+
+  $scope.formNext = function(){
+      console.log(index);
+      
+     if(index < 2){
+      $scope.activeForm =  index + 1;       
+     index++;
+     
+     if(index==2){
+         $.ajax({
+    method: "POST",
+    url: "/index",
+    data: { firstname :document.getElementById("fname").value, lastname :document.getElementById("lname").value,email:document.getElementById("email").value,phone:document.getElementById("phone").value,date:document.getElementById("dt").value,dateTo:document.getElementById("dtl").value}
+    
+})
+  .done(function( msg ) {
+    $.ajax({
+    method: "GET",
+    url: "/",
+    data: { firstname :document.getElementById("fname").value, lastname :document.getElementById("lname").value,email:document.getElementById("email").value,Gender:document.getElementsById("Gender").value,Type:document.getElementsById("Type").value}
+})
+  .done(function( msg ) {
+//   alert( "Data sent " + msg );
+    document.getElementById("display").innerHTML=msg;
+    
+  });
+    
+
+
+  
+
+
+  
+
+
+
+          </script>
+  </body>
+</html>
